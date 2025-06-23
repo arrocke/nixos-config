@@ -40,11 +40,32 @@
     openssh.authorizedKeys.keys = ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDCH4qIlPyu8bkbp6WqtoTE4V90LPgSSVKKXsHiCSK+WKAZBrKv//khW+f8EzuRLiW8M8MuzuYKCdusgVb7Ocvg+rakdnfLh26DmMAInocbO9deBVYRIjKREqbo+Ww/+xvqECOn6HEdYPfvkWQ221kBIO1/nctwzCt2VWDZVihgPWh2S4yBbimqqM8gX+QMgS88o3PGmHjtuiowSNGPEkErzc286MGSsZaS8xNsPt3Yf6+Ce3MbJlxZyVJOt+xq+asCvToJVCG4VRbJHVjdfcrjuchw8fy7CTDN1hPEy5H/IOGuvexFJrp/7uG8ES2aKe90tIQoeeSDCEqH3wfU5APVj5HBl6i9YFbqJzzsOsmbjizfgY7lzk6H1Hdfo6OOZZUVhfcbK2Iju77IbHAtTHAqmWDXQ/hlLzsjP5VeEQmTTGYEMcKJ70XRb5XyAsOm8Q1wNyjUN/BjhUbkHrJMEGKSlTRCB7CQyqblFAJPMgIcGWfvthJgIoU0W7Mxo67BnZLzjfi4OahNSqk/YjltYeKpn9kjjZvRqQPNwjO21MH3XC9tr07I8UuG6+R+kWdu13tOrtGXMX5VAkYYHVyrD04mR+rWswUtb4BH13410PFafIrrbLobcwcyvEFZ1j0VRdkyv1a5HnL/hqm2YIXkUTDprUP2zlopMkrWYgGSxe3lww== me@adrianrocke.com"];
   };
 
-  virtualisation.docker = {
-    enable = true;
-    rootless = {
+  virtualisation = {
+    docker = {
       enable = true;
-      setSocketVariable = true;
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+      };
+    };
+    oci-containers = {
+      backend = "docker";
+      containers = {
+        home-assistant = {
+          image = "ghcr.io/home-assistant/home-assistant:stable";
+          autoStart = true;
+          ports = [ "8123:8123" ];
+          volumes = [
+            "/home/adrian/.homeassistant:/config"
+          ];
+          extraOptions = [
+            "--network=host"
+          ];
+          environment = {
+            TZ = "America/Chicago";
+          };
+        };
+      };
     };
   };
 
@@ -100,6 +121,7 @@
     };
   };
 
+
   # services.guacamole = {
   #   enable = true;
   #   host = "127.0.0.1";
@@ -149,6 +171,7 @@
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
     2022 # ssh
+    8123 # home assistant
   ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
