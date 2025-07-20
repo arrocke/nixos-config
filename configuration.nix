@@ -137,6 +137,17 @@
     };
   };
 
+  services.inadyn = {
+    enable = true;
+    interval = "*-*-* *:00,15,30,45:00";
+    settings.provider.dyn = {
+        ssl = false;
+        username = "wqcam3b";
+        password = (builtins.readFile ./secrets/noip-password.txt);
+        hostname = "chadrian.no-ip.org";
+    };
+  };
+
 
   # services.guacamole = {
   #   enable = true;
