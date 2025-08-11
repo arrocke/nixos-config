@@ -24,15 +24,22 @@
     docker-compose
     pgadmin4-desktopmode
     tmux
+    tmuxinator
     lsof
     ripgrep
     pciutils
     pavucontrol
+    zoom
+    xfce.thunar
   ];
 
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
+  };
+
+  programs.thunar = {
+      enable = true;
   };
 
   users.users.adrian = {
