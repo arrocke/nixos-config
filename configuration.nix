@@ -14,6 +14,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
 
+  # necessary for wireguard
+  boot.kernelModules = [
+    "iptable_nat"
+    "iptable_filter"
+    "xt_nat"
+  ];
+
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
@@ -31,6 +38,7 @@
     pavucontrol
     zoom
     xfce.thunar
+    wireguard-tools
   ];
 
   programs.sway = {
@@ -204,13 +212,59 @@
   # List services that you want to enable:
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [
-    2022 # ssh
-    8123 # home assistant
-    8091 3300 # zwave
-    3000 # GBT development
-  ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall = {
+      allowedTCPPorts = [
+        2022 # ssh
+        8123 # home assistant
+        8091 3300 # zwave
+        3000 # GBT development
+      ];
+      allowedUDPPorts = [
+        51820 # WireGuard
+      ];
+  };
+
+  networking.nat.enable = true;
+  networking.nat.externalInterface = "eno1";
+  networking.nat.internalInterfaces = [ "wg0" ];
+
+  networking.wireguard.enable = true;
+  networking.wireguard.interfaces = {
+    wg0 = {
+      ips = [ "10.100.0.1/24" ];
+      listenPort = 51820;
+
+      # This allows the wireguard server to route your traffic to the internet and hence be like a VPN
+      # For this to work you have to set the dnsserver IP of your router (or dnsserver of choice) in your clients
+      postSetup = ''
+        ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o eno1 -j MASQUERADE
+      '';
+      postShutdown = ''
+        ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o eno1 -j MASQUERADE
+      '';
+
+      # Generate keys with
+      # umask 077
+      # sudo mkdir /etc/wireguard
+      # sudo wg genkey > /etc/wireguard/private
+      # sudo wg pubkey < /etc/wireguard/private > /etc/wireguard/public
+
+      privateKeyFile = "/etc/wireguard/private";
+      peers = [
+        { 
+          name = "phone-adrian";
+          publicKey = "ozsEzWrbSBx912IkZla4N7wKdnWEgBTR8UZEENY0fBA=";
+          allowedIPs = [ "10.100.0.2/32" ];
+        }
+        { 
+          name = "phone-charity";
+          publicKey = "x0mktTFVVnmvuDepa8OmXJtwI406bwvDXW6BAvbVK3w=";
+          allowedIPs = [ "10.100.0.3/32" ];
+        }
+      ];
+    };
+  };
+
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
