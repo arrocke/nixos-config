@@ -241,15 +241,6 @@
       ips = [ "10.100.0.1/24" ];
       listenPort = 51820;
 
-      # This allows the wireguard server to route your traffic to the internet and hence be like a VPN
-      # For this to work you have to set the dnsserver IP of your router (or dnsserver of choice) in your clients
-      postSetup = ''
-        ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o eno1 -j MASQUERADE
-      '';
-      postShutdown = ''
-        ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o eno1 -j MASQUERADE
-      '';
-
       # Generate keys with
       # umask 077
       # sudo mkdir /etc/wireguard
