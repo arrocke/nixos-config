@@ -170,13 +170,13 @@
     };
   };
 
-  services.guacamole-server = {
-    enable = true;
-    host = "0.0.0.0";
-    port = 4822;
-    userMappingXml = ./secrets/guacamole-user-mappings.xml;
-  };
-  services.guacamole-client.enable = true;
+
+  # services.guacamole = {
+  #   enable = true;
+  #   host = "127.0.0.1";
+  #   port = 4822;
+  #   userMappingXml = ./user-mapping.xml;
+  # }
 
   # Enable sound.
   services.pulseaudio.enable = true;
@@ -225,7 +225,6 @@
         8123 # home assistant
         8091 3300 # zwave
         3000 # GBT development
-        4822 5900 8080 # Guacamole
       ];
       allowedUDPPorts = [
         51820 # WireGuard
