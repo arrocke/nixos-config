@@ -159,6 +159,13 @@
     };
   };
 
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true;
+    openFirewall = true;
+  };
+
   services.inadyn = {
     enable = true;
     interval = "*-*-* *:00,15,30,45:00";
