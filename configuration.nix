@@ -266,6 +266,11 @@
           publicKey = "x0mktTFVVnmvuDepa8OmXJtwI406bwvDXW6BAvbVK3w=";
           allowedIPs = [ "10.100.0.3/32" ];
         }
+        { 
+          name = "macbook-adrian";
+          publicKey = "0l7s1xf+7s3dMFT0d8nHyzwqi/7kg6voiwDWKXzCoXM=";
+          allowedIPs = [ "10.100.0.4/32" ];
+        }
       ];
     };
   };
