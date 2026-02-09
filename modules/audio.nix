@@ -3,7 +3,6 @@
 {
   environment.systemPackages = with pkgs; [
     pavucontrol
-    pamixer
   ];
 
   hardware.pulseaudio.enable = false;
