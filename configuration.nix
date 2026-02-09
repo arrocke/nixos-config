@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, secrets, ... }:
 
 {
   imports =
@@ -11,6 +11,23 @@
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  sops = {
+    defaultSopsFile = ./secrets/secrets.yaml;
+    age = {
+      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      keyFile = "/var/lib/sops-nix/key.txt";
+      generateKey = true;
+    };
+    secrets = {
+      no-ip-password = {
+        mode = "0440";
+        owner = "inadyn";
+        group = "inadyn";
+      };
+    };
+  };
+
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -174,9 +191,9 @@
     enable = true;
     interval = "*-*-* *:00,15,30,45:00";
     settings.provider.dyn = {
+        include = "/run/secrets/no-ip-password";
         ssl = false;
         username = "wqcam3b";
-        password = (builtins.readFile ./secrets/noip-password.txt);
         hostname = "chadrian.no-ip.org";
     };
   };
