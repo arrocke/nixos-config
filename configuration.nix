@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./modules/audio.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -54,7 +55,6 @@
     lsof
     ripgrep
     pciutils
-    pavucontrol
     zoom
     xfce.thunar
     wireguard-tools
@@ -207,8 +207,6 @@
   # }
 
   # Enable sound.
-  hardware.pulseaudio.enable = true;
-  services.pipewire.enable = false;
   # OR
   # services.pipewire = {
   #   enable = true;
