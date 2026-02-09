@@ -42,6 +42,8 @@
     unzip
   ];
 
+  programs.iotop.enable = true;
+
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
@@ -186,7 +188,7 @@
   # }
 
   # Enable sound.
-  services.pulseaudio.enable = true;
+  hardware.pulseaudio.enable = true;
   services.pipewire.enable = false;
   # OR
   # services.pipewire = {
