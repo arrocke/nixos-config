@@ -9,26 +9,10 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./modules/audio.nix
+      ./modules/secrets.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  sops = {
-    defaultSopsFile = ./secrets/secrets.yaml;
-    age = {
-      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-      keyFile = "/var/lib/sops-nix/key.txt";
-      generateKey = true;
-    };
-    secrets = {
-      no-ip-password = {
-        mode = "0440";
-        owner = "inadyn";
-        group = "inadyn";
-      };
-    };
-  };
-
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -187,6 +171,15 @@
     openFirewall = true;
   };
 
+  sops = {
+    secrets = {
+      no-ip-password = {
+        mode = "0440";
+        owner = "inadyn";
+        group = "inadyn";
+      };
+    };
+  };
   services.inadyn = {
     enable = true;
     interval = "*-*-* *:00,15,30,45:00";
