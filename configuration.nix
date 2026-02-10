@@ -242,7 +242,7 @@
         2022 # ssh
         8123 # home assistant
         8091 3300 # zwave
-        3000 # GBT development
+        3000 4000 # GBT development
       ];
       allowedUDPPorts = [
         51820 # WireGuard
