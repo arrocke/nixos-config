@@ -39,7 +39,6 @@
     lsof
     ripgrep
     pciutils
-    zoom
     xfce.thunar
     wireguard-tools
     unzip
