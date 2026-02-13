@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ./modules/audio.nix
       ./modules/secrets.nix
+      ./modules/photos.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
