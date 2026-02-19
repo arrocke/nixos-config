@@ -244,6 +244,7 @@
         8123 # home assistant
         8091 3300 # zwave
         3000 4000 # GBT development
+        8888 # DLNA dev
       ];
       allowedUDPPorts = [
         51820 # WireGuard

@@ -8,14 +8,17 @@
 
     home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    immich-dlna.url = "github:arrocke/immich-dlna/v0.1.0";
   };
 
-  outputs = { self, nixpkgs, sops-nix, home-manager }: {
+  outputs = { self, nixpkgs, sops-nix, home-manager, immich-dlna }: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
         sops-nix.nixosModules.sops
+        immich-dlna.nixosModules.default
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;

@@ -1,19 +1,26 @@
 { ... }:
 
 {
-  services.minidlna = {
-    enable = true;
-    settings = {
-      media_dir = ["/data/media"];
-      inotify = "yes";
-    };
-  };
-  networking.firewall.allowedTCPPorts = [8200];
-  networking.firewall.allowedUDPPorts = [1900];
-
   services.immich = {
       enable = true;
       host = "0.0.0.0";
+      openFirewall = true;
+  };
+
+  sops = {
+    secrets = {
+      immich-api-key = {
+        mode = "0440";
+        owner = "immich";
+        group = "immich";
+      };
+    };
+  };
+  services.immich-dlna = {
+      enable = true;
+      immichApiKeyFile = /run/secrets/immich-api-key;
+      port = 8200;
+      dlnaOrigin = "http://192.168.0.11:8200";
       openFirewall = true;
   };
 }
