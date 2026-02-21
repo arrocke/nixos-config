@@ -29,6 +29,11 @@
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
+  fileSystems."/var/lib/docker" =
+    { device = "/dev/disk/by-uuid/f341c079-e2c6-4238-95af-02f593739df8";
+      fsType = "ext4";
+    };
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
