@@ -29,9 +29,28 @@
       options = [ "fmask=0077" "dmask=0077" ];
     };
 
-  fileSystems."/var/lib/docker" =
+  fileSystems."/mnt/ssd" =
     { device = "/dev/disk/by-uuid/f341c079-e2c6-4238-95af-02f593739df8";
       fsType = "ext4";
+      options = [ "noatime" ];
+    };
+
+  fileSystems."/var/lib/docker" =
+    { device = "/mnt/ssd/docker";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+
+  fileSystems."/home/adrian/.local/share/docker/volumes" =
+    { device = "/mnt/ssd/docker-volumes";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+
+  fileSystems."/home/adrian/ssd-repos" =
+    { device = "/mnt/ssd/repos";
+      fsType = "none";
+      options = [ "bind" ];
     };
 
   swapDevices = [ ];
