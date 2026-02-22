@@ -52,17 +52,33 @@
       options = [ "bind" ];
     };
 
-  # zdata pool was created with the command:
-  # sudo zpool create -o ashift=12 -O xattr=sa -O compression=lz4 -O atime=off -O recordsize=1M -O encryption=on -O keyformat=passphrase -O keylocation=file:///run/secrets/zfs-key -m /mnt/zdata zdata /dev/disk/by-id/wwn-0x50014ee2c1b6aed1
+  # zdata pools have been created following approaches outlined in:
   # https://www.return12.net/zfs-on-nixos/
   # https://jrs-s.net/2018/08/17/zfs-tuning-cheat-sheet/
+
+  # This is optimized for larger files - could use a default recordsize and adjust per dataset
+  # sudo zpool create -o ashift=12 -O xattr=sa -O compression=lz4 -O atime=off -O recordsize=1M -O encryption=on -O keyformat=passphrase -O keylocation=file:///run/secrets/zfs-key -m /mnt/zdata zdata /dev/disk/by-id/wwn-0x50014ee2c1b6aed1
   fileSystems."/mnt/zdata" =
     { device = "zdata";
       fsType = "zfs";
     };
 
+  # sudo zfs create zdata/immich
   fileSystems."/var/lib/immich" =
     { device = "zdata/immich";
+      fsType = "zfs";
+    };
+
+  # sudo zpool create -o ashift=12 -O xattr=sa -O compression=lz4 -O atime=off -O encryption=on -O keyformat=passphrase -O keylocation=file:///run/secrets/zfs-key -m /mnt/zdata zdata /dev/disk/by-id/wwn-0x5002538635c0e312
+  fileSystems."/mnt/zssd" =
+    { device = "zssd";
+      fsType = "zfs";
+    };
+
+  # This is optimized for postgresql's 8K page size
+  # sudo zfs create -o recordsize=8K zssd/immich
+  fileSystems."/var/lib/postgresql" =
+    { device = "zssd/postgresql";
       fsType = "zfs";
     };
 
