@@ -23,22 +23,15 @@
       fsType = "ext4";
     };
 
+  fileSystems."/mnt/ssd" =
+    { device = "/dev/disk/by-uuid/f341c079-e2c6-4238-95af-02f593739df8";
+      fsType = "ext4";
+    };
+
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/1835-560A";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
-    };
-
-  fileSystems."/mnt/ssd" =
-    { device = "/dev/disk/by-uuid/f341c079-e2c6-4238-95af-02f593739df8";
-      fsType = "ext4";
-      options = [ "noatime" ];
-    };
-
-  fileSystems."/var/lib/docker" =
-    { device = "/mnt/ssd/docker";
-      fsType = "none";
-      options = [ "bind" ];
     };
 
   fileSystems."/home/adrian/.local/share/docker/volumes" =
@@ -51,6 +44,26 @@
     { device = "/mnt/ssd/repos";
       fsType = "none";
       options = [ "bind" ];
+    };
+
+  fileSystems."/var/lib/docker" =
+    { device = "/mnt/ssd/docker";
+      fsType = "none";
+      options = [ "bind" ];
+    };
+
+  # zdata pool was created with the command:
+  # sudo zpool create -o ashift=12 -O xattr=sa -O compression=lz4 -O atime=off -O recordsize=1M -O encryption=on -O keyformat=passphrase -O keylocation=file:///run/secrets/zfs-key -m /mnt/zdata zdata /dev/disk/by-id/wwn-0x50014ee2c1b6aed1
+  # https://www.return12.net/zfs-on-nixos/
+  # https://jrs-s.net/2018/08/17/zfs-tuning-cheat-sheet/
+  fileSystems."/mnt/zdata" =
+    { device = "zdata";
+      fsType = "zfs";
+    };
+
+  fileSystems."/var/lib/immich" =
+    { device = "zdata/immich";
+      fsType = "zfs";
     };
 
   swapDevices = [ ];
