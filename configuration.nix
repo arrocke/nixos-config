@@ -13,6 +13,7 @@
       ./modules/photos.nix
       ./modules/zfs.nix
       ./modules/proxy.nix
+      ./modules/postgres.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
