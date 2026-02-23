@@ -4,6 +4,9 @@
   services.caddy = {
     enable = true;
   };
+  security.pki.certificateFiles = [
+    ../caddy-ca.crt
+  ];
 
   networking.firewall.allowedTCPPorts = [80 443];
 
