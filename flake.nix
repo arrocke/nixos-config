@@ -1,15 +1,16 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
     # This rev of sops-nix is needed for golang compatibility with nixpkgs
-    sops-nix.url = "github:Mic92/sops-nix?rev=17eea6f3816ba6568b8c81db8a4e6ca438b30b7c";
+    sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager/release-24.11";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     immich-dlna.url = "github:arrocke/immich-dlna/v0.1.0";
+    immich-dlna.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, sops-nix, home-manager, immich-dlna }: {

@@ -14,7 +14,7 @@
     enable = true;
     config.common.default = "*";
     extraPortals = with pkgs; [
-      xdg-desktop-portal-kde
+      kdePackages.xdg-desktop-portal-kde
     ];
   };
 
