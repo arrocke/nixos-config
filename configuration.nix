@@ -12,6 +12,7 @@
       ./modules/secrets.nix
       ./modules/photos.nix
       ./modules/zfs.nix
+      ./modules/proxy.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

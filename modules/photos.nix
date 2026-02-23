@@ -7,6 +7,13 @@
       openFirewall = true;
   };
 
+  services.caddy.virtualHosts."immich.rocke.dev" = {
+    extraConfig = ''
+      tls internal
+      reverse_proxy http://localhost:2283
+    '';
+  };
+
   sops = {
     secrets = {
       immich-api-key = {
