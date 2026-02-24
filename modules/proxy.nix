@@ -1,14 +1,40 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
-  services.caddy = {
-    enable = true;
-  };
-  security.pki.certificateFiles = [
-    ../caddy-ca.crt
+  networking.firewall.allowedTCPPorts = [
+    80 # HTTP
+    443 # HTTPS
+    53 # DNS
+  ];
+  networking.firewall.allowedUDPPorts = [
+    53 # DNS
   ];
 
-  networking.firewall.allowedTCPPorts = [80 443];
+  sops = {
+    secrets = {
+      caddy-env = {
+        mode = "0440";
+        owner = "caddy";
+        group = "caddy";
+      };
+    };
+  };
+  services.caddy = {
+    enable = true;
+    package = pkgs.caddy.withPlugins {
+      plugins = [ "github.com/caddy-dns/cloudflare@v0.2.3" ];
+      hash = "sha256-eDCHOuPm+o3mW7y8nSaTnabmB/msw6y2ZUoGu56uvK0=";
+    };
+    virtualHosts."*.rocke.dev" = {
+      extraConfig = ''
+        tls {
+          dns cloudflare {$CLOUDFLARE_API_KEY}
+          resolvers 1.1.1.1
+        }
+      '';
+    };
+    environmentFile = "/run/secrets/caddy-env";
+  };
 
   services.unbound = {
     enable = true;

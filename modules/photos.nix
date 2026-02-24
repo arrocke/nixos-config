@@ -9,7 +9,6 @@
 
   services.caddy.virtualHosts."immich.rocke.dev" = {
     extraConfig = ''
-      tls internal
       reverse_proxy http://localhost:2283
     '';
   };
