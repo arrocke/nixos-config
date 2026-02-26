@@ -2,6 +2,7 @@
 
 { imports = [
     ./hardware-configuration.nix
+    ../shared/secrets.nix
     ../shared/audio.nix
   ];
 
