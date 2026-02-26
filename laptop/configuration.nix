@@ -16,6 +16,9 @@
 
   time.timeZone = "America/Chicago";
 
+  # TODO: in the next nixos version, convert this to generateHostKeys = true to just create the host key without enabling the ssh daemon.
+  services.openssh.enable = true;
+
   users.users.adrian = {
     isNormalUser = true;
     home = "/home/adrian";

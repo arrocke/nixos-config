@@ -1,9 +1,13 @@
 keys:
-  - &adrian age1xh4n72js0mxclzxswgwnegh5dxl96ejj4l2j05m654j4x0yx7qlsfgldlz 
-  - &desktop age1695v27tjvh2wkdwhge4t38mg2m8pasw7dyfxnmymc5gcfjsnkv3snp7h08
+  - &adrian-server age1xh4n72js0mxclzxswgwnegh5dxl96ejj4l2j05m654j4x0yx7qlsfgldlz 
+  - &adrian-laptop age13l8sy9ds6lr39r8umzjhale0dl8uxufxfkjx7kne5ks8we72g37sfw6ek0
+  - &server age1695v27tjvh2wkdwhge4t38mg2m8pasw7dyfxnmymc5gcfjsnkv3snp7h08
+  - &laptop age1l2ytvuc2s9ytl8lfw0rxmhj98tew24h4pzzm6tw7yr02uslkqqeqryqwul
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
       - age:
-        - *adrian
-        - *desktop
+        - *adrian-server
+        - *adrian-laptop
+        - *server
+        - *laptop
