@@ -14,6 +14,7 @@
       ./modules/zfs.nix
       ./modules/proxy.nix
       ./modules/postgres.nix
+      ./modules/vpn.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -23,12 +24,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
 
-  # necessary for wireguard
-  boot.kernelModules = [
-    "iptable_nat"
-    "iptable_filter"
-    "xt_nat"
-  ];
 
   nixpkgs.config.allowUnfree = true;
 
@@ -37,7 +32,6 @@
     gcc
     lsof
     pciutils
-    wireguard-tools
   ];
 
   programs.iotop.enable = true;
@@ -230,47 +224,8 @@
         3000 4000 # GBT development
         8888 # DLNA dev
       ];
-      allowedUDPPorts = [
-        51820 # WireGuard
-      ];
   };
 
-  networking.nat.enable = true;
-  networking.nat.externalInterface = "eno1";
-  networking.nat.internalInterfaces = [ "wg0" ];
-
-  networking.wireguard.enable = true;
-  networking.wireguard.interfaces = {
-    wg0 = {
-      ips = [ "10.100.0.1/24" ];
-      listenPort = 51820;
-
-      # Generate keys with
-      # umask 077
-      # sudo mkdir /etc/wireguard
-      # sudo wg genkey > /etc/wireguard/private
-      # sudo wg pubkey < /etc/wireguard/private > /etc/wireguard/public
-
-      privateKeyFile = "/etc/wireguard/private";
-      peers = [
-        { 
-          name = "phone-adrian";
-          publicKey = "ozsEzWrbSBx912IkZla4N7wKdnWEgBTR8UZEENY0fBA=";
-          allowedIPs = [ "10.100.0.2/32" ];
-        }
-        { 
-          name = "phone-charity";
-          publicKey = "x0mktTFVVnmvuDepa8OmXJtwI406bwvDXW6BAvbVK3w=";
-          allowedIPs = [ "10.100.0.3/32" ];
-        }
-        { 
-          name = "macbook-adrian";
-          publicKey = "0l7s1xf+7s3dMFT0d8nHyzwqi/7kg6voiwDWKXzCoXM=";
-          allowedIPs = [ "10.100.0.4/32" ];
-        }
-      ];
-    };
-  };
 
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
