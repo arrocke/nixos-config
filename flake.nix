@@ -27,5 +27,19 @@
         }
       ];
     };
+    
+    nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ./laptop/configuration.nix
+        sops-nix.nixosModules.sops
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.adrian = ./laptop/home.nix;
+        }
+      ];
+    };
   };
 }
