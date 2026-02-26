@@ -34,19 +34,10 @@
 
   environment.systemPackages = with pkgs; [
     git
-    neovim
-    chromium
     gcc
-    docker-compose
-    pgadmin4-desktopmode
-    tmux
-    tmuxinator
     lsof
-    ripgrep
     pciutils
-    xfce.thunar
     wireguard-tools
-    unzip
   ];
 
   programs.iotop.enable = true;
@@ -54,10 +45,6 @@
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
-  };
-
-  programs.thunar = {
-      enable = true;
   };
 
   users.users.adrian = {
@@ -134,13 +121,6 @@
   # services.xserver.enable = true;
 
   services.dbus.enable = true;
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-wlr
-    ];
-  };
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";

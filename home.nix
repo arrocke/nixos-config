@@ -8,6 +8,14 @@
 
   home.packages = with pkgs; [
     zoom-us
+    neovim
+    chromium
+    docker-compose
+    pgadmin4-desktopmode
+    tmux
+    tmuxinator
+    xfce.thunar
+    ripgrep
   ];
 
   xdg.portal = {
@@ -15,6 +23,7 @@
     config.common.default = "*";
     extraPortals = with pkgs; [
       kdePackages.xdg-desktop-portal-kde
+      xdg-desktop-portal-wlr
     ];
   };
 
