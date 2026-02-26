@@ -12,11 +12,13 @@
 
   home.packages = with pkgs; [
     zoom-us
-    neovim
     chromium
     tmux
     xfce.thunar
-    ripgrep
+
+    neovim
+    gcc # needed for treesitter
+    ripgrep # needed for telescope
   ];
 
   programs.git = {
