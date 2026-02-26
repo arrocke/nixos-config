@@ -16,14 +16,14 @@
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        ./configuration.nix
+        ./server/configuration.nix
         sops-nix.nixosModules.sops
         immich-dlna.nixosModules.default
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.adrian = ./home.nix;
+          home-manager.users.adrian = ./server/home.nix;
         }
       ];
     };

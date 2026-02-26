@@ -4,8 +4,8 @@
   imports =
     [ 
       ./hardware-configuration.nix
+      ../shared/secrets.nix
       ./modules/audio.nix
-      ./modules/secrets.nix
       ./modules/photos.nix
       ./modules/zfs.nix
       ./modules/proxy.nix
