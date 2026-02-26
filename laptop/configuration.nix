@@ -1,8 +1,10 @@
 { config, lib, pkgs, ... }:
 
-{ imports =
-    [
-      ./hardware-configuration.nix ];
+{ imports = [
+    ./hardware-configuration.nix
+    ../shared/audio.nix
+  ];
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 

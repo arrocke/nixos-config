@@ -5,7 +5,7 @@
     [ 
       ./hardware-configuration.nix
       ../shared/secrets.nix
-      ./modules/audio.nix
+      ../shared/audio.nix
       ./modules/photos.nix
       ./modules/zfs.nix
       ./modules/proxy.nix
