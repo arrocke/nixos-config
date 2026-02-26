@@ -21,6 +21,9 @@
   };
   services.caddy = {
     enable = true;
+
+    # This setup allows caddy to get an SSL cert from Let's Encrypt
+    # by adding a DNS record to Cloudflare.
     package = pkgs.caddy.withPlugins {
       plugins = [ "github.com/caddy-dns/cloudflare@v0.2.3" ];
       hash = "sha256-eDCHOuPm+o3mW7y8nSaTnabmB/msw6y2ZUoGu56uvK0=";
@@ -33,7 +36,7 @@
         }
       '';
     };
-    environmentFile = "/run/secrets/caddy-env";
+    environmentFile = /run/secrets/caddy-env;
   };
 
   services.unbound = {
@@ -53,6 +56,8 @@
         ];
       };
 
+      # There are two views here that resolve *.rocke.dev domains to different IPs
+#     # depending on whether you are on the local network or accessing via the VPN
       view = [
         {
           name = "lan";
