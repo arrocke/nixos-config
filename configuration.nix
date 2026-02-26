@@ -53,14 +53,8 @@
 
   time.timeZone = "America/Chicago";
 
+  # I'm not sure what systems rely on this
   services.dbus.enable = true;
-
-  services.sunshine = {
-    enable = true;
-    autoStart = true;
-    capSysAdmin = true;
-    openFirewall = true;
-  };
 
   system.stateVersion = "25.05";
 }
