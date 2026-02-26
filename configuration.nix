@@ -16,6 +16,7 @@
       ./modules/postgres.nix
       ./modules/vpn.nix
       ./modules/ddns.nix
+      ./modules/homeassistant.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -50,47 +51,6 @@
     openssh.authorizedKeys.keys = ["ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDCH4qIlPyu8bkbp6WqtoTE4V90LPgSSVKKXsHiCSK+WKAZBrKv//khW+f8EzuRLiW8M8MuzuYKCdusgVb7Ocvg+rakdnfLh26DmMAInocbO9deBVYRIjKREqbo+Ww/+xvqECOn6HEdYPfvkWQ221kBIO1/nctwzCt2VWDZVihgPWh2S4yBbimqqM8gX+QMgS88o3PGmHjtuiowSNGPEkErzc286MGSsZaS8xNsPt3Yf6+Ce3MbJlxZyVJOt+xq+asCvToJVCG4VRbJHVjdfcrjuchw8fy7CTDN1hPEy5H/IOGuvexFJrp/7uG8ES2aKe90tIQoeeSDCEqH3wfU5APVj5HBl6i9YFbqJzzsOsmbjizfgY7lzk6H1Hdfo6OOZZUVhfcbK2Iju77IbHAtTHAqmWDXQ/hlLzsjP5VeEQmTTGYEMcKJ70XRb5XyAsOm8Q1wNyjUN/BjhUbkHrJMEGKSlTRCB7CQyqblFAJPMgIcGWfvthJgIoU0W7Mxo67BnZLzjfi4OahNSqk/YjltYeKpn9kjjZvRqQPNwjO21MH3XC9tr07I8UuG6+R+kWdu13tOrtGXMX5VAkYYHVyrD04mR+rWswUtb4BH13410PFafIrrbLobcwcyvEFZ1j0VRdkyv1a5HnL/hqm2YIXkUTDprUP2zlopMkrWYgGSxe3lww== me@adrianrocke.com"];
   };
 
-  virtualisation = {
-    docker = {
-      enable = true;
-      rootless = {
-        enable = true;
-        setSocketVariable = true;
-      };
-    };
-    oci-containers = {
-      backend = "docker";
-      containers = {
-        zwave = {
-          image = "zwavejs/zwave-js-ui:10.7.0";
-          ports = [ "8091:8091" "3300:3000" ];
-          volumes = [
-            "/home/adrian/.homeassistant/zwave:/usr/src/app/store"
-          ];
-          extraOptions = [
-            "--device=/dev/serial/by-id/usb-0658_0200-if00:/dev/zwave"
-          ];
-          environment = {
-            TZ = "America/Chicago";
-          };
-        };
-        home-assistant = {
-          image = "ghcr.io/home-assistant/home-assistant:stable";
-          autoStart = true;
-          ports = [ "8123:8123" ];
-          volumes = [
-            "/home/adrian/.homeassistant:/config"
-          ];
-          extraOptions = [
-            "--network=host"
-          ];
-          environment = {
-            TZ = "America/Chicago";
-          };
-        };
-      };
-    };
-  };
 
   # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
