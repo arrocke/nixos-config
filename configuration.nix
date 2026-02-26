@@ -15,6 +15,7 @@
       ./modules/proxy.nix
       ./modules/postgres.nix
       ./modules/vpn.nix
+      ./modules/ddns.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -99,26 +100,7 @@
   # Set your time zone.
   time.timeZone = "America/Chicago";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
-
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
   services.dbus.enable = true;
-
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
 
   # Enable CUPS to print documents.
   services.printing = {
@@ -149,25 +131,6 @@
     openFirewall = true;
   };
 
-  sops = {
-    secrets = {
-      no-ip-password = {
-        mode = "0440";
-        owner = "inadyn";
-        group = "inadyn";
-      };
-    };
-  };
-  services.inadyn = {
-    enable = true;
-    interval = "*-*-* *:00,15,30,45:00";
-    settings.provider.dyn = {
-        include = "/run/secrets/no-ip-password";
-        ssl = false;
-        username = "wqcam3b";
-        hostname = "chadrian.no-ip.org";
-    };
-  };
 
 
   # services.guacamole = {
