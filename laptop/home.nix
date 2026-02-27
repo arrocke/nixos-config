@@ -20,6 +20,12 @@
           command = "waybar";
         }
       ];
+
+      input = {
+        "type:touchpad" = {
+          tap = "enabled";
+        };
+      };
     };
   };
 

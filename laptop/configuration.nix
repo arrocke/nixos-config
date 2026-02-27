@@ -24,15 +24,18 @@
     isNormalUser = true;
     home = "/home/adrian";
     description = "Adrian Rocke";
-    extraGroups = [ "wheel" "networkmanager" "audio" ];
+    extraGroups = [ "wheel" "networkmanager" "audio" "docker" ];
   };
 
   security.polkit.enable = true;
   hardware.graphics.enable = true;
+  services.libinput.enabled = true;
 
   fonts.packages = with pkgs; [
     inconsolata
   ];
+
+  virtualisation.docker.enable = true;
 
   swapDevices = [
     {
