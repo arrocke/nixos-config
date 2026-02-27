@@ -24,6 +24,7 @@
       input = {
         "type:touchpad" = {
           tap = "enabled";
+          natural_scroll = "enabled";
         };
       };
     };

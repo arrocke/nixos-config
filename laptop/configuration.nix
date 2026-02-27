@@ -29,7 +29,7 @@
 
   security.polkit.enable = true;
   hardware.graphics.enable = true;
-  services.libinput.enabled = true;
+  services.libinput.enable = true;
 
   fonts.packages = with pkgs; [
     inconsolata
