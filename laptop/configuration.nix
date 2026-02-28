@@ -47,6 +47,7 @@
   powerManagement.enable = true;
 
   boot.kernelParams = [
+    "nvme_core.default_ps_max_latency_us=0" # This somehow prevents the SSD from locking up on boot
     "resume_offset=220305408"
     "mem_sleep_default=deep" # Suspend first
   ];
