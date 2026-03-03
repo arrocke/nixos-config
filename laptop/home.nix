@@ -11,7 +11,7 @@
 
     config = {
       fonts = {
-        names = [ "Inconsolata" ];
+        names = [ "InconsolataGo Nerd Font Mono" ];
         size = 10.0;
       };
 
@@ -37,16 +37,26 @@
         layer = "top";
         position = "bottom";
         modules-left = [ "sway/workspaces" ];
-        modules-center = [ "clock" ];
+        modules-center = [ ];
+        modules-right = [ "clock" "battery" ];
         clock = {
-          format= "{:%I:%M %p}";
+          format = "{:%I:%M %p}";
+        };
+        battery = {
+          format = "{capacity}% {icon}";
+          format-icons = ["" "" "" "" ""];
         };
       };
     };
     style = ''
       * {
-        font-family: "Inconsolata";
+        font-family: "InconsolataGo Nerd Font Propo";
         font-size: 16px;
+      }
+
+      #battery {
+        margin-left: 16px;
+        margin-right: 8px;
       }
     '';
   };
@@ -55,7 +65,7 @@
     enable = true;
     settings = {
       main = {
-        font = "Inconsolata:size=12";
+        font = "InconsolataGo Nerd Font Mono:size=12";
       };
     };
   };

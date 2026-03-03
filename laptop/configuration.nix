@@ -31,9 +31,17 @@
   hardware.graphics.enable = true;
   services.libinput.enable = true;
 
-  fonts.packages = with pkgs; [
-    inconsolata
-  ];
+  fonts = {
+    packages = with pkgs; [
+      nerd-fonts.inconsolata-go
+    ];
+
+    fontconfig = {
+      defaultFonts = {
+        monospace = [ "InconsolataGo Nerd Font Mono" ];
+      };
+    };
+  };
 
   virtualisation.docker.enable = true;
 
