@@ -15,11 +15,11 @@
       keybindings = lib.mkOptionDefault {
         # Super + Shift + S
         # Screenshot a selection that saves to ~/Screenshots and copies to clipboard.
-        "${modifier}+Shift+s" = "exec selection=$(slurp) && grim -g \"$selection\" - | tee ~/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy";
+        "${modifier}+Shift+s" = ''exec grim -g "$(slurp)" - > ~/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png'';
       
         # Print Screen Button
         # Screenshot the currently focused screen, save to ~/Screenshots and copy to clipboard.
-        "Print" = "exec grimshot save output - | tee ~/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy";
+        "Print" = "exec grimshot save output - > ~/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png";
       };
 
       fonts = {
@@ -87,6 +87,7 @@
     chromium
     tmux
     xfce.thunar
+    pgmanage
 
     neovim
     gcc # needed for treesitter
@@ -96,6 +97,7 @@
     grim
     slurp
     sway-contrib.grimshot
+
   ];
 
   programs.git = {
