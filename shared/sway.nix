@@ -1,6 +1,10 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
+  home.packages = with pkgs; [
+    ghostty
+  ];
+
   wayland.windowManager.sway = {
     enable = true;
 
@@ -34,6 +38,8 @@
           natural_scroll = "enabled";
         };
       };
+
+      terminal = "ghostty";
     };
   };
 

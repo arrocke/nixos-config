@@ -10,15 +10,6 @@
 
   programs.home-manager.enable = true;
 
-  programs.foot = {
-    enable = true;
-    settings = {
-      main = {
-        font = "InconsolataGo Nerd Font Mono:size=12";
-      };
-    };
-  };
-
   home.packages = with pkgs; [
     zoom-us
     chromium
