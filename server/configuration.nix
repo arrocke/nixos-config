@@ -31,11 +31,6 @@
 
   programs.iotop.enable = true;
 
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-  };
-
   users.users.adrian = {
     isNormalUser = true;
     home = "/home/adrian";

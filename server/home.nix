@@ -25,23 +25,14 @@
   wayland.windowManager.sway = {
     config.output = {
         "HDMI-A-3" = {
-            resolution = "1920x1080";
+            mode = "1920x1080";
             position = "1920 0";
         };
         "DP-1" = {
-            resolution = "1920x1080";
+            mode = "1920x1080";
             position = "0 0";
         };
     };
-  };
-
-  xdg.portal = {
-    enable = true;
-    config.common.default = "*";
-    extraPortals = with pkgs; [
-      kdePackages.xdg-desktop-portal-kde
-      xdg-desktop-portal-wlr
-    ];
   };
 
   # The version this config is compatible with.
