@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ../shared/sway.nix
+  ];
+
   home.username = "adrian";
   home.homeDirectory = "/home/adrian";
 
@@ -17,6 +21,19 @@
     xfce.thunar
     ripgrep
   ];
+
+  wayland.windowManager.sway = {
+    config.output = {
+        "HDMI-A-3" = {
+            resolution = "1920x1080";
+            position = "1920 0";
+        };
+        "DP-1" = {
+            resolution = "1920x1080";
+            position = "0 0";
+        };
+    };
+  };
 
   xdg.portal = {
     enable = true;
