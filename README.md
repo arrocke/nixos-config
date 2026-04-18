@@ -18,3 +18,32 @@
 ## Useful Links
 
 - [sops-nix](https://github.com/Mic92/sops-nix) - For managing secrets in nix files.
+
+## Backups
+
+### Create a new backup pool
+
+```bash
+sudo zpool create backup \
+  -o ashift=12 \
+  -O compression=zstd \
+  -O atime=off \
+  -O xattr=sa \
+  -O encryption=on \
+  -O keyformat=passphrase \
+  -O keylocation=file:///run/secrets/zfs-key \
+  /dev/disk/by-id/usb-XXXX
+```
+
+### Backup
+
+Import and mount the encrypted backup drive
+```bash
+sudo zpool import -l backup
+```
+
+Run the sync script
+```bash
+syncoid --no-sync-snap zdata/immich backup/immich
+```
+
