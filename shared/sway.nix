@@ -10,7 +10,7 @@
     enable = true;
 
     config = let
-      modifier = "Mod4"
+      modifier = "Mod4";
     in {
       modifier = modifier;
 
