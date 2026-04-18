@@ -10,8 +10,10 @@
     enable = true;
 
     config = let
-      modifier = config.wayland.windowManager.sway.config.modifier;
+      modifier = "Mod4";
     in {
+      modifier = modifier;
+
       keybindings = lib.mkOptionDefault {
         # Super + Shift + S
         # Screenshot a selection that saves to ~/Screenshots and copies to clipboard.
@@ -77,7 +79,7 @@
     enable = true;
     settings = {
       main = {
-        font = "InconsolataGo Nerd Font Mono:size=12";
+        font = "InconsolataGo Nerd Font Mono:size=12, Noto Serif Hebrew";
       };
     };
   };
@@ -107,6 +109,11 @@
       user.email = "me@adrianrocke.com";
       init.defaultBranch = "main";
     };
+  };
+
+  programs.ghostty = {
+      enable = true;
+      enableBashIntegration = true;
   };
 
   home.pointerCursor = {

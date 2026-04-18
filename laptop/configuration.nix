@@ -34,10 +34,14 @@
   fonts = {
     packages = with pkgs; [
       nerd-fonts.inconsolata-go
+      noto-fonts
+      noto-fonts-color-emoji
     ];
 
     fontconfig = {
       defaultFonts = {
+        serif = ["Noto Serif" "Noto Serif Hebrew" "Noto Color Emoji"];
+        sansSerif = ["Noto Sans" "Noto Serif Hebrew" "Noto Color Emoji"];
         monospace = [ "InconsolataGo Nerd Font Mono" ];
       };
     };
