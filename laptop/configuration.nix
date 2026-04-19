@@ -57,25 +57,11 @@
   ];
 
   powerManagement.enable = true;
-
-  boot.kernelParams = [
-    "nvme_core.default_ps_max_latency_us=0" # This somehow prevents the SSD from locking up on boot
-    "resume_offset=220305408"
-    "mem_sleep_default=deep" # Suspend first
-  ];
-  boot.resumeDevice = "/dev/disk/by-uuid/df9c547e-952e-44da-94eb-626d6c5013cf";
-
-  services.power-profiles-daemon.enable = true;
   services.logind.settings.Login = {
-    HandleLidSwitch = "suspend-then-hibernate";
-    HandlePowerKey = "hibernate";
+    HandleLidSwitch = "suspend";
+    HandlePowerKey = "suspend";
     HandlePowerKeyLongPress = "poweroff";
   };
-
-  # Define time delay for hibernation after suspending
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=20m
-  '';
 
   hardware.bluetooth = {
     enable = true;
