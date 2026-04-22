@@ -17,6 +17,8 @@
 
   time.timeZone = "America/Chicago";
 
+  services.hardware.bolt.enable = true;
+
   # TODO: in the next nixos version, convert this to generateHostKeys = true to just create the host key without enabling the ssh daemon.
   services.openssh.enable = true;
 
@@ -74,7 +76,7 @@
 
   # Define time delay for hibernation after suspending
   systemd.sleep.extraConfig = ''
-    HibernateDelaySec=20m
+    HibernateDelaySec=2h
   '';
 
   hardware.bluetooth = {
