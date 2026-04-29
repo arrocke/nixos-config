@@ -69,6 +69,16 @@
       fsType = "zfs";
     };
 
+  # sudo zfs create zdata/jellyfin
+  fileSystems."/var/lib/media" =
+    { device = "zdata/media";
+      fsType = "zfs";
+    };
+  fileSystems."/var/lib/jellyfin" =
+    { device = "zssd/jellyfin";
+      fsType = "zfs";
+    };
+
   # sudo zpool create -o ashift=12 -O xattr=sa -O compression=lz4 -O atime=off -O encryption=on -O keyformat=passphrase -O keylocation=file:///run/secrets/zfs-key -m /mnt/zdata zdata /dev/disk/by-id/wwn-0x5002538635c0e312
   fileSystems."/mnt/zssd" =
     { device = "zssd";
