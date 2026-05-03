@@ -1,6 +1,14 @@
 { config, lib, pkgs, ... }:
 
 {
+  home.packages = with pkgs; [
+    # for screenshots
+    grim
+    slurp
+    sway-contrib.grimshot
+    wl-clipboard
+  ];
+
   programs.ghostty = {
       enable = true;
       enableBashIntegration = true;
