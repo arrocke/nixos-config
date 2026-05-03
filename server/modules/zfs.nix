@@ -21,16 +21,8 @@
     enable = true;
 
     templates.backup = {
-      hourly = 48;
-      daily = 30;
-      monthly = 3;
-      autoprune = true;
-      autosnap = true;
-    };
-
-    datasets."zdata/immich" = {
       # Run daily and monthly snapshots at 2 am
-      # to allow immich to create db backups first.
+      # to allow services like immich to create db backups first.
       daily_hour = 2;
       daily_min = 0;
       monthly_hour = 2;
@@ -43,6 +35,13 @@
       yearly = 1;
       autoprune = true;
       autosnap = true;
+    };
+
+    datasets."zdata/immich" = {
+      use_template = ["backup"];
+    };
+    datasets."zdata/media" = {
+      use_template = ["backup"];
     };
 
     datasets."backup/immich" = {
