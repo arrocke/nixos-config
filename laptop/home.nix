@@ -20,11 +20,6 @@
     neovim
     gcc # needed for treesitter
     ripgrep # needed for telescope
-
-    # for screenshots
-    grim
-    slurp
-    sway-contrib.grimshot
   ];
 
   programs.git = {
