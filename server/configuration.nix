@@ -30,6 +30,8 @@
     pciutils
   ];
 
+  hardware.graphics.enable = true;
+
   programs.iotop.enable = true;
 
   users.users.adrian = {
