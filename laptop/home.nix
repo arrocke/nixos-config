@@ -18,8 +18,11 @@
     pgmanage
 
     neovim
-    gcc # needed for treesitter
-    ripgrep # needed for telescope
+    gcc
+    ripgrep
+    llm-agents.pi
+
+    aseprite
   ];
 
   programs.git = {

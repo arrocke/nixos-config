@@ -10,9 +10,11 @@
 
     immich-dlna.url = "github:arrocke/immich-dlna/v0.1.0";
     immich-dlna.inputs.nixpkgs.follows = "nixpkgs";
+
+    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
-  outputs = { self, nixpkgs, sops-nix, home-manager, immich-dlna }: {
+  outputs = { self, nixpkgs, sops-nix, home-manager, immich-dlna, llm-agents }: {
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -31,6 +33,9 @@
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
+        {
+            nixpkgs.overlays = [ llm-agents.overlays.default ];
+        }
         ./laptop/configuration.nix
         sops-nix.nixosModules.sops
         home-manager.nixosModules.home-manager
