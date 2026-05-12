@@ -7,6 +7,7 @@
     slurp
     sway-contrib.grimshot
     wl-clipboard
+    wofi
   ];
 
   programs.ghostty = {
@@ -31,6 +32,8 @@
         # Screenshot the currently focused screen, save to ~/Screenshots and copy to clipboard.
         "Print" = "exec grimshot save output - | tee ~/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy";
       };
+
+      menu = "wofi --show drun";
 
       fonts = {
         names = [ "InconsolataGo Nerd Font Mono" ];
