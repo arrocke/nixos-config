@@ -37,11 +37,11 @@
   wayland.windowManager.sway = {
     config = {
         output = {
-            "DP-7" = {
+            "Ancor Communications Inc ASUS VS247 ECLMTF103035" = {
                 mode = "1920x1080";
                 position = "1920 0";
             };
-            "DP-9" = {
+            "Ancor Communications Inc ASUS VS247 F5LMTF177630" = {
                 mode = "1920x1080";
                 position = "0 0";
             };
