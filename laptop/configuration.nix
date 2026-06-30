@@ -105,6 +105,14 @@
 
   services.blueman.enable = true;
 
+  programs.steam = {
+    enable = true;
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
+    ];
+  };
+  programs.gamemode.enable = true;
+
   # Enable CUPS to print documents. services.printing.enable = true;
 
   # Enable sound. services.pulseaudio.enable = true; OR services.pipewire = {
