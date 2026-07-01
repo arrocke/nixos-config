@@ -4,6 +4,7 @@
     ./hardware-configuration.nix
     ../shared/secrets.nix
     ../shared/audio.nix
+    ../shared/greeter.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
