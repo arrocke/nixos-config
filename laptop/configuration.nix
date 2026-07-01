@@ -85,9 +85,9 @@
   };
 
   # Define time delay for hibernation after suspending
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=2h
-  '';
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "2h";
+  };
 
   hardware.bluetooth = {
     enable = true;

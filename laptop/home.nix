@@ -20,7 +20,6 @@
     neovim
     gcc
     ripgrep
-    llm-agents.pi
 
     aseprite
   ];

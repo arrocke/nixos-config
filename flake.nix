@@ -1,20 +1,18 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     immich-dlna.url = "github:arrocke/immich-dlna/v0.1.0";
     immich-dlna.inputs.nixpkgs.follows = "nixpkgs";
-
-    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
-  outputs = { self, nixpkgs, sops-nix, home-manager, immich-dlna, llm-agents }: {
+  outputs = { self, nixpkgs, sops-nix, home-manager, immich-dlna }: {
     nixosConfigurations.server = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -33,9 +31,6 @@
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        {
-            nixpkgs.overlays = [ llm-agents.overlays.default ];
-        }
         ./laptop/configuration.nix
         sops-nix.nixosModules.sops
         home-manager.nixosModules.home-manager
