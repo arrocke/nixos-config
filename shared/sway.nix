@@ -8,6 +8,7 @@
     sway-contrib.grimshot
     wl-clipboard
     wofi
+    brightnessctl
   ];
 
   programs.ghostty = {
@@ -31,6 +32,9 @@
         # Print Screen Button
         # Screenshot the currently focused screen, save to ~/Screenshots and copy to clipboard.
         "Print" = "exec grimshot save output - | tee ~/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png | wl-copy";
+
+        "XF86MonBrightnessUp" = "exec brightnessctl set +5%";
+        "XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
       };
 
       menu = "wofi --show drun";
