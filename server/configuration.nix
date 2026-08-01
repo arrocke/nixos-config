@@ -47,6 +47,7 @@
   services.openssh.settings.AllowUsers = ["adrian"];
 
   networking.hostName = "server";
+  networking.networkmanager.enable = true;
 
   time.timeZone = "America/Chicago";
 
