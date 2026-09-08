@@ -1,23 +1,20 @@
-{ ... }:
+{ config, ... }:
 
 {
-  sops = {
-    secrets = {
-      no-ip-password = {
-        mode = "0440";
-        owner = "inadyn";
-        group = "inadyn";
-      };
-    };
+  sops.secrets.cloudflare-api-key = {
+    restartUnits = [ "ddclient.service" ];
   };
-  services.inadyn = {
+  services.ddclient = {
     enable = true;
-    interval = "*-*-* *:00,15,30,45:00";
-    settings.provider.dyn = {
-        include = "/run/secrets/no-ip-password";
-        ssl = false;
-        username = "wqcam3b";
-        hostname = "chadrian.no-ip.org";
-    };
+    interval = "5min";
+    protocol = "cloudflare";
+    
+    username = "token"; 
+    passwordFile = config.sops.secrets.cloudflare-api-key.path;
+    
+    # Target configurations
+    zone = "rocke.dev";
+    domains = [ "vpn.rocke.dev" ];
+    ssl = true;
   };
 }
